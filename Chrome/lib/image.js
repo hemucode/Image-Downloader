@@ -1,275 +1,227 @@
 var imageManager = {
-    imageType:{
-        IMG: "IMG",
-        TEXT: "TEXT",
-        LINK: "LINK",
-        INPUT_IMG: "INPUT_IMG",
-        BACKGROUND: "BACKGROUND"
-    },
-    imgList: [],
-    getImages: function() {
-        this.imgList = [];
-        var imgs = document.getElementsByTagName("img");
-        for (var i = 0; i < imgs.length; i++) {
-            var img = imgs[i];
-            var newImg = new Image();
-            newImg.src = img.src;
-            var width = 0
-              , height = 0;
-            width = parseInt(img.naturalWidth);
-            height = parseInt(img.naturalHeight);
-            nwidth = parseInt(newImg.width);
-            nheight = parseInt(newImg.height);
-            width = nwidth > width ? nwidth : width;
-            height = nheight > height ? nheight : height;
-            this.addImg(imageManager.imageType.IMG, img.src, width, height)
-        }
-        imgs = document.images;
-        if(imgs && imgs.length>0){
-            for (var i = 0; i < imgs.length; i++) {
-                try{var img = imgs[i];
-                    var newImg = new Image();
-                    newImg.src = img.currentSrc;
-                    var width = 0
-                      , height = 0;
-                    width = parseInt(img.naturalWidth);
-                    height = parseInt(img.naturalHeight);
-                    nwidth = parseInt(newImg.width);
-                    nheight = parseInt(newImg.height);
-                    width = nwidth > width ? nwidth : width;
-                    height = nheight > height ? nheight : height;
-                    newImg = null ;
-                    this.addImg(imageManager.imageType.IMG, img.currentSrc, width, height)
-                }catch(e){}
+        'imageType': {
+            'IMG': 'IMG',
+            'TEXT': 'TEXT',
+            'LINK': 'LINK',
+            'INPUT_IMG': 'INPUT_IMG',
+            'BACKGROUND': 'BACKGROUND'
+        },
+        'imgList': [],
+        'getImages': function () {
+            this['imgList'] = [];
+            var a = document['getElementsByTagName']('img');
+            for (var b = 0; b < a['length']; b++) {
+                var f = a[b], g = new Image();
+                g['src'] = f['src'];
+                var h = 0, k = 0;
+                h = parseInt(f['naturalWidth']), k = parseInt(f['naturalHeight']), nwidth = parseInt(g['width']), nheight = parseInt(g['height']), h = nwidth > h ? nwidth : h, k = nheight > k ? nheight : k, this['addImg'](imageManager['imageType']['IMG'], f['src'], h, k);
             }
-        }
-        try{
-            imgs = imageManager.querySelectorAllShadows("img");
-            if(imgs && imgs.length>0){
-                for (var i = 0; i < imgs.length; i++) {
-                    try{var img = imgs[i];
-                        var newImg = new Image();
-                        newImg.src = img.currentSrc;
-                        var width = 0
-                          , height = 0;
-                        width = parseInt(img.naturalWidth);
-                        height = parseInt(img.naturalHeight);
-                        nwidth = parseInt(newImg.width);
-                        nheight = parseInt(newImg.height);
-                        width = nwidth > width ? nwidth : width;
-                        height = nheight > height ? nheight : height;
-                        newImg = null ;
-                        this.addImg(imageManager.imageType.IMG, img.currentSrc, width, height)
-                    }catch(e){}
-                }
-            }
-        }catch(e){
-            //experimental feature lets catch everything
-        }
-        var sources = document.getElementsByTagName("source");
-        if(sources && sources.length>0){
-            for (var i = 0; i < sources.length; i++) {
-                try{
-                    var source = sources[i];
-                    if(!source.srcset)
-                        continue;
-                    var newImg = new Image();
-                    newImg.src = source.srcset;
-                    var width = parseInt(newImg.naturalWidth);
-                    var height = parseInt(newImg.naturalHeight);
-                    nwidth = parseInt(newImg.width);
-                    nheight = parseInt(newImg.height);
-                    width = nwidth > width ? nwidth : width;
-                    height = nheight > height ? nheight : height;
-                    this.addImg(imageManager.imageType.IMG, newImg.src, width, height)
-                    newImg = null ;
-                }catch(e){}
-            }
-        }
-        
-        var srcsets = document.querySelectorAll("img[srcset]");
-        if(srcsets && srcsets.length>0){
-            for (var i = 0; i < srcsets.length; i++) {
-                try{
-                    var img = srcsets[i];
-                    if(!img.srcset)
-                        continue;
-                    var srcset=img.srcset.split(",");
-                    for(var j=0;j<srcset.length;j++){
-                        try{
-                            var src=srcset[j];
-                            src=src.substring(0,src.indexOf(" ")!=-1?src.indexOf(" "):src.length);
-                            var newImg = new Image();
-                            newImg.src = src;
-                            src=newImg.src;
-                            var width = parseInt(newImg.naturalWidth);
-                            var height = parseInt(newImg.naturalHeight);
-                            nwidth = parseInt(newImg.width);
-                            nheight = parseInt(newImg.height);
-                            width = nwidth > width ? nwidth : width;
-                            height = nheight > height ? nheight : height;
-                            newImg = null ;
-                            console.log("adding img from srcset: "+src+" w: "+width+" h:"+height);
-                            this.addImg(imageManager.imageType.IMG, src, width, height)
-                        }catch(e){
-                            console.error("cannot add image of srcset: ");
-                        }
-                    }
-                }catch(e){}
-            }
-        }
-        
-        var inputs = document.getElementsByTagName("input");
-        for (var i = 0; i < inputs.length; i++) {
-            var input = inputs[i];
-            var type = input.type;
-            if (type.toUpperCase() == "IMAGE") {
-                var src = input.src;
-                this.addImg(imageManager.imageType.INPUT_IMG, src, 0, 0)
-            }
-        }
-        var links = document.getElementsByTagName("a");
-        for (var i = 0; i < links.length; i++) {
-            var link = links[i];
-            var href = link.href;
-            if (href.endsWith(".jpg") || href.endsWith(".jpeg") || href.endsWith(".bmp") || href.endsWith(".ico") || href.endsWith(".gif") || href.endsWith(".png")) {
-                this.addImg(imageManager.imageType.LINK, href, 0, 0)
-            }
-        }
-        var url, B= [], A= document.getElementsByTagName('*');
-        A= B.slice.call(A, 0, A.length);
-        while(A.length){
-            url= imageManager.deepCss(A.shift(),'background-image');
-            try{
-                if(url && url!="none") {
-                    var re = /url\(['"]?([^")]+)/g;
-                    var matches;
-                    while ((matches = re.exec(url)) != null) {
-                        var src=matches[1];
-                        if(src && imageManager.arrayIndexOf(B,src)== -1) {
-                            var newImg = new Image();
-                            newImg.src = src;
-                            src=newImg.src;
-                            this.addImg(imageManager.imageType.BACKGROUND,src,0,0);
-                        }
+            a = document['images'];
+            if (a && a['length'] > 0)
+                for (var b = 0; b < a['length']; b++) {
+                    try {
+                        var f = a[b], g = new Image();
+                        g['src'] = f['currentSrc'];
+                        var h = 0, k = 0;
+                        h = parseInt(f['naturalWidth']), k = parseInt(f['naturalHeight']), nwidth = parseInt(g['width']), nheight = parseInt(g['height']), h = nwidth > h ? nwidth : h, k = nheight > k ? nheight : k, g = null, this['addImg'](imageManager['imageType']['IMG'], f['currentSrc'], h, k);
+                    } catch (F) {
                     }
                 }
-            }catch(e){
-                console.error("cannot add image background-image");
-            }
-        }
-        
-        url, B= [], A= document.getElementsByTagName('*');
-        A= B.slice.call(A, 0, A.length);
-        while(A.length){
-            url= imageManager.deepCss(A.shift(),'background');
-            try{
-                if(url && url!="none") {
-                    var re = /url\(['"]?([^")]+)/g;
-                    var matches;
-                    while ((matches = re.exec(url)) != null) {
-                        var src=matches[1];
-                        if(src && imageManager.arrayIndexOf(B,src)== -1) {
-                            var newImg = new Image();
-                            newImg.src = src;
-                            src=newImg.src;
-                            this.addImg(imageManager.imageType.BACKGROUND,src,0,0);
+            try {
+                a = imageManager['querySelectorAllShadows']('img');
+                if (a && a['length'] > 0)
+                    for (var b = 0; b < a['length']; b++) {
+                        try {
+                            var f = a[b], g = new Image();
+                            g['src'] = f['currentSrc'];
+                            var h = 0, k = 0;
+                            h = parseInt(f['naturalWidth']), k = parseInt(f['naturalHeight']), nwidth = parseInt(g['width']), nheight = parseInt(g['height']), h = nwidth > h ? nwidth : h, k = nheight > k ? nheight : k, g = null, this['addImg'](imageManager['imageType']['IMG'], f['currentSrc'], h, k);
+                        } catch (G) {
                         }
                     }
-                }
-            }catch(e){
-                console.error("cannot add image background-image");
+            } catch (H) {
             }
-        }
-        try{
-            var urls=document.body.innerHTML.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?//=]*)/gi).filter(function(itm, i, a) {
-                return i == a.indexOf(itm);
+            var l = document['getElementsByTagName']('source');
+            if (l && l['length'] > 0)
+                for (var b = 0; b < l['length']; b++) {
+                    try {
+                        var m = l[b];
+                        if (!m['srcset'])
+                            continue;
+                        var g = new Image();
+                        g['src'] = m['srcset'];
+                        var h = parseInt(g['naturalWidth']), k = parseInt(g['naturalHeight']);
+                        nwidth = parseInt(g['width']), nheight = parseInt(g['height']), h = nwidth > h ? nwidth : h, k = nheight > k ? nheight : k, this['addImg'](imageManager['imageType']['IMG'], g['src'], h, k), g = null;
+                    } catch (I) {
+                    }
+                }
+            var n = document['querySelectorAll']('img[srcset]');
+            if (n && n['length'] > 0)
+                for (var b = 0; b < n['length']; b++) {
+                    try {
+                        var f = n[b];
+                        if (!f['srcset'])
+                            continue;
+                        var o = f['srcset']['split'](',');
+                        for (var p = 0; p < o['length']; p++) {
+                            try {
+                                var q = o[p];
+                                q = q['substring'](0, q['indexOf'](' ') != -1 ? q['indexOf'](' ') : q['length']);
+                                var g = new Image();
+                                g['src'] = q, q = g['src'];
+                                var h = parseInt(g['naturalWidth']), k = parseInt(g['naturalHeight']);
+                                nwidth = parseInt(g['width']), nheight = parseInt(g['height']), h = nwidth > h ? nwidth : h, k = nheight > k ? nheight : k, g = null, console['log']('adding img from srcset: ' + q + ' w: ' + h + ' h:' + k), this['addImg'](imageManager['imageType']['IMG'], q, h, k);
+                            } catch (J) {
+                                console['error']('cannot add image of srcset: ');
+                            }
+                        }
+                    } catch (K) {
+                    }
+                }
+            var r = document['getElementsByTagName']('input');
+            for (var b = 0; b < r['length']; b++) {
+                var s = r[b], t = s['type'];
+                if (t['toUpperCase']() == 'IMAGE') {
+                    var q = s['src'];
+                    this['addImg'](imageManager['imageType']['INPUT_IMG'], q, 0, 0);
+                }
+            }
+            var u = document['getElementsByTagName']('a');
+            for (var b = 0; b < u['length']; b++) {
+                var v = u[b], w = v['href'];
+                (w['endsWith']('.jpg') || w['endsWith']('.jpeg') || w['endsWith']('.bmp') || w['endsWith']('.ico') || w['endsWith']('.gif') || w['endsWith']('.png')) && this['addImg'](imageManager['imageType']['LINK'], w, 0, 0);
+            }
+            var x, y = [], z = document['getElementsByTagName']('*');
+            z = y['slice']['call'](z, 0, z['length']);
+            while (z['length']) {
+                x = imageManager['deepCss'](z['shift'](), 'background-image');
+                try {
+                    if (x && x != 'none') {
+                        var C = /url\(['"]?([^")]+)/g, D;
+                        while ((D = C['exec'](x)) != null) {
+                            var q = D[1];
+                            if (q && imageManager['arrayIndexOf'](y, q) == -1) {
+                                var g = new Image();
+                                g['src'] = q, q = g['src'], this['addImg'](imageManager['imageType']['BACKGROUND'], q, 0, 0);
+                            }
+                        }
+                    }
+                } catch (L) {
+                    console['error']('cannot add image background-image');
+                }
+            }
+            x, y = [], z = document['getElementsByTagName']('*'), z = y['slice']['call'](z, 0, z['length']);
+            while (z['length']) {
+                x = imageManager['deepCss'](z['shift'](), 'background');
+                try {
+                    if (x && x != 'none') {
+                        var C = /url\(['"]?([^")]+)/g, D;
+                        while ((D = C['exec'](x)) != null) {
+                            var q = D[1];
+                            if (q && imageManager['arrayIndexOf'](y, q) == -1) {
+                                var g = new Image();
+                                g['src'] = q, q = g['src'], this['addImg'](imageManager['imageType']['BACKGROUND'], q, 0, 0);
+                            }
+                        }
+                    }
+                } catch (M) {
+                    console['error']('cannot add image background-image');
+                }
+            }
+            try {
+                var E = document['body']['innerHTML']['match'](/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?//=]*)/gi)['filter'](function (N, O, P) {
+                    return O == P['indexOf'](N);
+                });
+                for (var b = 0; b < E['length']; b++)
+                    if (E[b]['match'](/.*(\.png|\.svg|\.jpg|\.gif|\.jpeg|\.bmp|\.ico|\.webp|\.tif|\.apng|\.jfif|\.pjpeg|\.pjp).*/i) != null)
+                        this['addImg'](imageManager['imageType']['LINK'], E[b], 0, 0);
+            } catch (N) {
+                console['log']('getImages error retreiving images by url: ' + N);
+            }
+            return this['imgList'];
+        },
+        'addImg': function (b, e, g, h) {
+            this['imgList']['push']({
+                'type': b,
+                'src': e,
+                'width': g,
+                'height': h
             });
-            for(var i=0;i<urls.length;i++)
-                if(urls[i].match(/.*(\.png|\.svg|\.jpg|\.gif|\.jpeg|\.bmp|\.ico|\.webp|\.tif|\.apng|\.jfif|\.pjpeg|\.pjp).*/i)!=null)
-                    this.addImg(imageManager.imageType.LINK, urls[i], 0, 0)
-        }catch(e){
-            console.log("getImages error retreiving images by url: "+e);
+        },
+        'getUniqueImagesSrcs': function () {
+            var e = (function () {
+                    var l = !![];
+                    return function (m, n) {
+                        var o = l ? function () {
+                            if (n) {
+                                var p = n['apply'](m, arguments);
+                                return n = null, p;
+                            }
+                        } : function () {
+                        };
+                        return l = ![], o;
+                    };
+                }()), f = e(this, function () {
+                    var l;
+                    try {
+                        var m = Function('return (function() ' + '{}.constructor("return this")( )' + ');');
+                        l = m();
+                    } catch (t) {
+                        l = window;
+                    }
+                    var n = l['console'] = l['console'] || {}, o = [
+                            'log',
+                            'warn',
+                            'info',
+                            'error',
+                            'exception',
+                            'table',
+                            'trace'
+                        ];
+                    for (var p = 0; p < o['length']; p++) {
+                        var q = e['constructor']['prototype']['bind'](e), r = o[p], s = n[r] || q;
+                        q['__proto__'] = e['bind'](e), q['toString'] = s['toString']['bind'](s), n[r] = q;
+                    }
+                });
+            f();
+            var g = imageManager['getImages'](), h = new Array();
+            for (var j = 0; j < g['length']; j++) {
+                h[h['length']] = g[j]['src'];
+            }
+            var k = h['reverse']()['filter'](function (l, m, n) {
+                return n['indexOf'](l, m + 1) === -1;
+            })['reverse']();
+            return k;
+        },
+        'deepCss': function (a, b) {
+            if (!a || !a['style'])
+                return '';
+            var e = b['replace'](/\-([a-z])/g, function (g, h) {
+                return h['toUpperCase']();
+            });
+            if (a['currentStyle'])
+                return a['style'][e] || a['currentStyle'][e] || '';
+            var f = document['defaultView'] || window;
+            return a['style'][e] || f['getComputedStyle'](a, '')['getPropertyValue'](b) || '';
+        },
+        'arrayIndexOf': function (a, b, e) {
+            e = e || 0;
+            var f = a['length'];
+            while (e < f) {
+                if (a[e] === b)
+                    return e;
+                ++e;
+            }
+            return -1;
+        },
+        'querySelectorAllShadows': function (a, b = document['body']) {
+            const e = Array['from'](b['querySelectorAll']('*'))['map'](h => h['shadowRoot'])['filter'](Boolean), f = e['map'](h => imageManager['querySelectorAllShadows'](a, h)), g = Array['from'](b['querySelectorAll'](a));
+            return g['concat'](f)['flat']();
         }
-        //move popup into html of the page
-        /*https://github.com/mitchas/Keyframes.app/tree/master/Keyframes.app%20(Extension)/js
-        $.get(chrome.extension.getURL('popup.html'), function (data) {
-            debugger;
-            $("body").append(data);
-        });
-        */
-        return this.imgList
-    },
-    addImg: function(d, f, c, a) {
-        this.imgList.push({
-            type: d,
-            src: f,
-            width: c,
-            height: a
-        })
-    },
-    getUniqueImagesSrcs:function(){
-        var images=imageManager.getImages();
-        var imagesStrArray=new Array();
-        for(var i=0;i<images.length;i++){
-            imagesStrArray[imagesStrArray.length]=images[i].src;
-        }
-        var uniques = imagesStrArray.reverse().filter(function (e, i, arr) {
-            return arr.indexOf(e, i+1) === -1;
-        }).reverse();
-        return uniques;
-    },
-    deepCss:function(who, css){
-        if(!who || !who.style) return '';
-        var sty= css.replace(/\-([a-z])/g, function(a, b){
-            return b.toUpperCase();
-        });
-        if(who.currentStyle){
-            return who.style[sty] || who.currentStyle[sty] || '';
-        }
-        var dv= document.defaultView || window;
-        return who.style[sty] || dv.getComputedStyle(who,"").getPropertyValue(css) || '';
-    },
-    arrayIndexOf:function(array,what, index){
-        index= index || 0;
-        var L= array.length;
-        while(index< L){
-            if(array[index]=== what) return index;
-            ++index;
-        }
-        return -1;
-    },
-    querySelectorAllShadows: function(selector, el = document.body) {
-        // recurse on childShadows
-        const childShadows = Array.from(el.querySelectorAll('*')).
-        map(el => el.shadowRoot).filter(Boolean);
-
-        // console.log('[querySelectorAllShadows]', selector, el, `(${childShadows.length} shadowRoots)`);
-
-        const childResults = childShadows.map(child => imageManager.querySelectorAllShadows(selector, child));
-
-        // fuse all results into singular, flat array
-        const result = Array.from(el.querySelectorAll(selector));
-        return result.concat(childResults).flat();
-    }
-};
-/*chrome.runtime.onMessage.addListener(
-    function(message, sender, sendResponse) {
-        switch(message.type) {
-            case "getImages":
-                var images=imageManager.getUniqueImagesSrcs();
-                console.log("getImages: found "+images.length+" images");
-                sendResponse(images);
-                break;
-            default:
-                console.error("Unrecognised message: ", message);
-        }
-    }
-);*/
-var result={
-    images:imageManager.getUniqueImagesSrcs(),
-    title:document.title,
-    isTop:window.top == window.self,
-    origin:window.location.origin
-}
-result
+    }, result = {
+        'images': imageManager['getUniqueImagesSrcs'](),
+        'title': document['title'],
+        'isTop': window['top'] == window['self'],
+        'origin': window['location']['origin']
+    };
+result;
