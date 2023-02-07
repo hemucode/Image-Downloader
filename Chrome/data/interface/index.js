@@ -19,7 +19,7 @@ function bindCheckboxes() {
       localStorage[$input.name] = $input.checked
     }, false)
   }
-  if (localStorage.checkbox=="true") {
+  if (localStorage.checkBox=="true") {
     document.querySelectorAll("link")[1].rel = 'text';//dark
     document.querySelectorAll("link")[2].rel = 'stylesheet';//light
   }
