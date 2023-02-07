@@ -1,0 +1,1 @@
+body{width:500px;padding:10px}header{display:flex;align-items:flex-start;justify-content:space-between;border-top-left-radius:calc(.3rem - 1px);border-top-right-radius:calc(.3rem - 1px);border-bottom:1px solid #dee2e6}.preferences-inputs,header{padding:1rem}

@@ -1,21 +1,36 @@
 {
+   "action": {
+      "default_icon": "assets/icon128.png",   
+      "default_popup": "popup.html",
+      "default_title": "__MSG_appName__"
+   },
    "background": {
-      "persistent": true,
-      "scripts": [ "/src/background/downloadImages.js", "/src/background/handleUpdates.js" ]
+      "service_worker": "scripts/bg.js",
+      "matches":   [ "\u003Call_urls>"]
    },
-   "browser_action": {
-      "default_icon": "/images/icon_128.png",
-      "default_popup": "/src/Popup/index.html"
+   "content_security_policy": {
+   "extension_pages": "script-src 'self'; object-src 'self'"
    },
-   "description": "Browse and download images on the web",
+   "default_locale": "en",
+   "description": "__MSG_appDesc__",
+   "host_permissions": [ "\u003Call_urls>" ],
+   "homepage_url": "https://www.downloadhub.cloud/2022/11/adblock-for-youtube.html",
    "icons": {
-      "128": "/images/icon_128.png",
-      "16": "/images/icon_16.png",
-      "48": "/images/icon_48.png"
+      "128": "assets/icon128.png"
    },
-   "manifest_version": 2,
-   "name": "Image Downloader",
-   "options_page": "/src/Options/index.html",
-   "permissions": [ "activeTab", "downloads", "webRequest", "webRequestBlocking", "http://*/*", "https://*/*" ],
-   "version": "3.3.3"
+   "manifest_version": 3,
+   "name": "__MSG_appName__",
+   "permissions": [
+     "webRequest",
+     "activeTab", 
+     "downloads",
+     "storage", 
+     "scripting", 
+     "tabs",
+     "webRequest",
+     "webNavigation",
+     "management","declarativeNetRequest", "declarativeNetRequestFeedback"
+  ],
+   "version": "1.0.6"
 }
+

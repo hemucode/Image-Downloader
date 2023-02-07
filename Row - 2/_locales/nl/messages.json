@@ -1,0 +1,126 @@
+{
+   "copiedImageLink": {
+      "description": "",
+      "message": "Copied!"
+   },
+   "deselectAll": {
+      "description": "",
+      "message": "Deselect all"
+   },
+   "detectingImages": {
+      "description": "",
+      "message": "Detecting images on current page"
+   },
+   "downloadPlural": {
+      "description": "",
+      "message": "Download {{images_count}} images"
+   },
+   "downloadSingle": {
+      "description": "",
+      "message": "Download {{images_count}} image"
+   },
+   "extDescription": {
+      "description": "",
+      "message": "Blader en download afbeeldingen op internet. Sla favoriete afbeelding op of selecteer alles tegelijk om bulksgewijs te downloaden."
+   },
+   "extName": {
+      "description": "",
+      "message": "Image Downloader - Afbeeldingen in bulk downloaden"
+   },
+   "filterHeight": {
+      "description": "",
+      "message": "Height"
+   },
+   "filterPlaceholder": {
+      "description": "",
+      "message": "Filter by URL or image type"
+   },
+   "filterWidth": {
+      "description": "",
+      "message": "Width"
+   },
+   "foundPlural": {
+      "description": "",
+      "message": "Found {{images_count}} images"
+   },
+   "foundSingle": {
+      "description": "",
+      "message": "Found {{images_count}} image"
+   },
+   "noMatchingImages": {
+      "description": "",
+      "message": "There isn't images matching filters"
+   },
+   "notFoundImages": {
+      "description": "",
+      "message": "Haven't found any images on this page"
+   },
+   "preferencesAllFrames": {
+      "description": "",
+      "message": "Search images in all frames"
+   },
+   "preferencesCancel": {
+      "description": "",
+      "message": "Cancel"
+   },
+   "preferencesDownload": {
+      "description": "",
+      "message": "Specify Download location"
+   },
+   "preferencesDownloadCreateFolderOnUrl": {
+      "description": "",
+      "message": "Create folder based on url"
+   },
+   "preferencesDownloadUseFolder": {
+      "description": "",
+      "message": "Use always this folder"
+   },
+   "preferencesPopup": {
+      "description": "",
+      "message": "Use popup instead of side menu"
+   },
+   "preferencesSave": {
+      "description": "",
+      "message": "Save"
+   },
+   "preferencesTitle": {
+      "description": "",
+      "message": "Preferences"
+   },
+   "preferencesWarnings": {
+      "description": "",
+      "message": "Show warnings on multiple files download"
+   },
+   "processingImages": {
+      "description": "",
+      "message": "Processed {{processed_images_count}} from {{total_images_count}}"
+   },
+   "selectAll": {
+      "description": "",
+      "message": "Select all"
+   },
+   "systemPage": {
+      "description": "target=\"_blank\" for links is required in order to open link in new tab",
+      "message": "You can run this on any webpage, except for ones where the browser restricts extensions from running scripts. This includes the Chrome Web Store and browser settings pages.\n\u003Ca href=\"https://www.google.com/search?q=cute+puppies&sxsrf=ALeKk02AeeQhj74OjK8_JMHWqxr0ZYVlWw:1612189643373&source=lnms&tbm=isch&sa=X&ved=2ahUKEwie9IK48sjuAhWMHXcKHb3pCrkQ_AUoAXoECB0QAw&biw=1680&bih=884\" target=\"_blank\">Try out another page on the web.\u003C/a> Have&nbsp;fun!&nbsp;&#x1F389;"
+   },
+   "warningsCancel": {
+      "description": "",
+      "message": "Cancel"
+   },
+   "warningsDoNotShow": {
+      "description": "",
+      "message": "Do not show this dialog again"
+   },
+   "warningsDownload": {
+      "description": "",
+      "message": "Download"
+   },
+   "warningsDownloading": {
+      "description": "",
+      "message": "Downloading {{images_count}} images"
+   },
+   "warningsText": {
+      "description": "",
+      "message": "Make sure you don't have selected the \"Ask where to save each file before downloading\" checkbox in Chrome Settings --> Advanced --> Download section.\nOtherwise Chrome by design will popup the Save as dialog for each file"
+   }
+}

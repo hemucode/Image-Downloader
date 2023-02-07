@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Image Downloaders</title>
+  <link rel="stylesheet" type="text/css" href="jquery-ui.min.css">
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+
+<body>
+  <div id="container" style="ddisplay:none;">
+    <div class="statusdivcontainer">
+      <div id="statusdiv" style="padding: 7px 0px;">
+        <table style="width:100%;" cellspacing="0" cellpadding="0">
+          <tr>
+            <td style="padding:0px 10px 0px 0px;">
+              <div id="foundimagesinnerdiv" style="white-space:nowrap;white-space:nowrap;padding: 7px 0px 7px 0px;">
+                <span messagesKey="searchingImagesLabel" id="searchingimages" class="localizedSpan">Searching images...</span>
+                <span messagesKey="foundLabel" class="localizedSpan" id="numimagesfound" style="display:none;">Found %n images</span>
+              </div>
+              <div id="downloadButton" class="downloadButton" style="display:none;"></div>
+            </td>
+            <td style="width:100%;">
+              <div id="selectalla" messagesKey="selectall" class="downloadButton cancelButton localizedSpan" style="padding-left:12px;visibility:hidden;">
+                Select all
+              </div>
+              <div id="showPrefs" style="float:right;cursor:pointer;margin-top:2px;position:relative;">
+                <img style="height: 29px;top: 1px;position: relative;" src="../icons/setting.png" />
+              </div>
+              <div id="toolsButton" messageskey="tools" class="downloadButton toolsButton localizedSpan active">Tools</div>
+            </td>
+          </tr>
+          <tr id="toolsDiv">
+            <td colspan="2">
+              <div class="filters">
+                <div id="sizeTab" tabindex="0">
+                  <span class="menuLabel">Size</span><svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
+                  </svg>
+                  <div class="selectMenu sizeMenu">
+                    <div sizeConf="any" class="selected">Any</div>
+                    <div sizeConf="small">Small</div>
+                    <div sizeConf="medium">Medium</div>
+                    <div sizeConf="large">Large</div>
+                    <div sizeConf="custom">At least <input type="number" value="0" id="minwidthinput" class="filterInput noSelect">&times;<input type="number" value="0" id="minheightinput" class="filterInput noSelect"></div>
+                    <div class="savesize" saveSize="true">Save size selection</div>
+                  </div>
+                </div>
+                <div tabindex="1">
+                  <span class="menuLabel">Type</span><svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
+                  </svg>
+                  <div class="selectMenu typeMenu">
+                    <div typeConf="any" class="selected">Any</div>
+                    <div typeConf="JPG">JPG</div>
+                    <div typeConf="GIF">GIF</div>
+                    <div typeConf="PNG">PNG</div>
+                    <div typeConf="BMP">BMP</div>
+                    <div typeConf="SVG">SVG</div>
+                    <div typeConf="WEBP">WEBP</div>
+                    <div typeConf="ICO">ICO</div>
+                    <div typeConf="TIFF">TIFF</div>
+                  </div>
+                </div>
+                <div tabindex="2">
+                  <span class="menuLabel">Layout</span><svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
+                  </svg>
+                  <div class="selectMenu layoutMenu">
+                    <div layoutConf="any" class="selected">Any</div>
+                    <div layoutConf="square">Square</div>
+                    <div layoutConf="wide">Wide</div>
+                    <div layoutConf="tall">Tall</div>
+                  </div>
+                </div>
+                <div tabindex="3">
+                  <span class="menuLabel">URL</span><svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
+                  </svg>
+                  <div class="selectMenu">
+                    <div style="padding-left:10px;"><input type="text" id="filterbyurlinput" placeholder="Filter by URL or name" style="height:30px;width:100%;font-size:14px;box-sizing:border-box;padding-left:6px;border:1px solid #c5c5c5;border-radius:5px;background:#fff;" class="noSelect" /></div>
+                  </div>
+                </div>
+                <div class="clearFilters" style="display:none;">
+                  <span class="menuLabel">Clear</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div id="imgsContainer">
+      <div id="spinner" class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="jquery-ui.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+  <div id="manyfiles" style="display:none;position: absolute;width: 100%;height: 100%;z-index: 1000;background: rgba(0,0,0,0.4);">
+    <div style="padding:0px 10px 10px 10px;box-sizing: border-box;position: absolute;top: 50%;left: 50%;background: #fff;width: 400px;height: 320px;margin-left: -200px;margin-top: -125px;box-shadow: 0px 0px 20px rgba(0,0,0,0.6);border-radius: 5px;font-size:15px;">
+      <h2><span messagesKey="manyfilesnum" class="localizedSpan" id="manyfilesnum">Download %n images</span></h2>
+      <p id="chromemanyfileswarning">
+        <span messagesKey="makesurechrome" class="localizedSpan">Make sure you don't have selected the 'Ask where to save each file before downloading' checkbox in <a href="chrome://settings/downloads" target="_blank">Chrome Settings --> Advanced --> Download section.</a></span><br>
+        <br>
+        <span messagesKey="otherwisechrome" class="localizedSpan">Otherwise Chrome by design will popup the Save as... dialog for each file :-(</span>
+      </p>
+      <p id="firefoxmanyfileswarning" style="display:none;">
+        <span messagesKey="makesurefirefox" class="localizedSpan">Make sure you don't have selected the 'Always ask where to save files' checkbox in Firefox Settings --> Files and Applications section.</span><br>
+        <br>
+        <span messagesKey="otherwisefirefox" class="localizedSpan">Otherwise Firefox by design will popup the Save as... dialog for each file :-(</span>
+      </p>
+      <p>
+        <input type="checkbox" name="donotbotherme" id="donotbotherme" /> <label for="donotbotherme" messagesKey="donotshowdialogagain" class="localizedSpan">Do not show this dialog again</label>
+      </p>
+      <div style="position: relative;left:84px;top:12px;font-size:16px;">
+        <div id="manyfilesdownload" class="downloadButton">
+          <img style="left:12px;" src='../icons/icon-128.png' />
+          <span messagesKey="download" class="localizedSpan">Download</span>
+        </div>
+        <div id="manyfilescancel" class="downloadButton cancelButton" style="padding-left:12px;margin-left:10px;">
+          <span messagesKey="cancel" class="localizedSpan">Cancel</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="prefsDiv" style="display:none;position: absolute;width: 100%;height: 100%;z-index: 1000;background: rgba(0,0,0,0.4);">
+    <div style="padding:10px 10px 10px 10px;box-sizing: border-box;position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);background: #fcfcfc;width: 400px;box-shadow: 0px 0px 20px rgba(0,0,0,0.6);border-radius: 1px;font-size:15px;">
+      <div><big>Settings</big></div><br>
+      <div style="position:relative;">
+        <input type="checkbox" id="biggerview" /><label for="biggerview">Enlarge popup window</label>
+      </div>
+      <div style="position:relative;">
+        <input type="checkbox" id="twocols" /><label for="twocols">Display images in two columns</label>
+      </div>
+      <div id="downloadseparatefoldercont">
+        <input type="checkbox" id="downloadseparatefolder" /><label for="downloadseparatefolder">Enter download location</label>
+        <div style="display:none;padding:10px 5px 5px 18px;" id="downloadocationcontainer">
+          <input style="margin:6px 6px 6px 0px;" type="radio" id="useseparatefolder" name="downloadfolderpref" value="basedonurl" checked="checked" /><label for="useseparatefolder">create folder based on url. </label><br>
+          <input style="margin:6px 6px 6px 0px;" type="radio" id="usesamefolder" name="downloadfolderpref" value="usefixedfoldername" /><label for="usesamefolder">use always this folder: </label><input type="text" id="savefoldername" value="imager"></label><br>
+          <span class="prefsTip">
+            Make sure that "Ask where to save each file before downloading" is unchecked in Browser Settings
+          </span>
+        </div>
+      </div>
+      <div>
+        <input type="checkbox" id="donotbother" /><label for="donotbother">Do not show many files warning</label>
+      </div>
+      <div>
+        <input type="checkbox" id="allframes" /><label for="allframes">Search in all frames</label>
+      </div>
+      <div style="position: relative;float:left;left:50%;padding-top:20px;padding-bottom: 10px;transform:translateX(-50%);">
+        <div id="saveprefs" class="downloadButton" style="padding-right:26px;padding-left:26px;">
+          Save
+        </div>
+        <div id="saveprefscancel" class="downloadButton cancelButton" style="padding-left:12px;margin-left:10px;">
+          Cancel
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="ratingDiv" style="display:none;position: absolute;width: 100%;height: 100%;z-index: 1000;background: rgba(0,0,0,0.4);">
+    <div style="padding:10px 10px 10px 10px;box-sizing: border-box;position: absolute;top: 50%;left: 50%;background: #fcfcfc;width: 400px;height: 187px;margin-left: -200px;margin-top: -83px;box-shadow: 0px 0px 20px rgba(0,0,0,0.6);border-radius: 5px;">
+      <div><big>Useful App for you?</big></div> <br>
+      <div style="padding:5px 11px;">
+        Would you mind rating us on the Chrome Web Store? Thank you!
+      </div>
+      <div style="position: relative;left:94px;top:18px;">
+        <div id="ratebutton" class="downloadButton" style="padding-right:26px;padding-left:26px;">
+          OK
+        </div>
+        <div id="rateclose" class="downloadButton cancelButton" style="padding-left:12px;margin-left:10px;">
+          Close
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
