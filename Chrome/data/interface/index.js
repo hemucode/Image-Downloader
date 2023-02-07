@@ -17,11 +17,19 @@ function bindCheckboxes() {
     $input.checked = localStorage[$input.name] === 'true'
     $setting.addEventListener('change', (event) => {
       localStorage[$input.name] = $input.checked
+      if (localStorage.checkBox=="true") {
+        document.querySelectorAll("link")[3].rel = 'text';//dark
+        document.querySelectorAll("link")[4].rel = 'stylesheet';//light
+      }else {
+        document.querySelectorAll("link")[3].rel = 'stylesheet';//dark
+        document.querySelectorAll("link")[4].rel = 'text';//light
+      }
     }, false)
+
   }
   if (localStorage.checkBox=="true") {
-    document.querySelectorAll("link")[1].rel = 'text';//dark
-    document.querySelectorAll("link")[2].rel = 'stylesheet';//light
+    document.querySelectorAll("link")[3].rel = 'text';//dark
+    document.querySelectorAll("link")[4].rel = 'stylesheet';//light
   }
 }
 var conf={
@@ -380,7 +388,7 @@ var imageye={
         }
     },
     openRatingTab: function(){
-        window.open("https://chrome.google.com/webstore/detail/imageye-image-downloader/agionbommeaifngbhincahgmoflcikhm/reviews");
+        window.open(`https://chrome.google.com/webstore/detail/${chrome.runtime.id}/reviews`);
     },
     downloadImages:async function(){
         var urls=[];
