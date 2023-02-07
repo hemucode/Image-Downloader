@@ -1,3 +1,10 @@
+var config = {};
+
+config.welcome = {
+  set lastupdate (val) {app.storage.write("lastupdate", val)},
+  get lastupdate () {return app.storage.read("lastupdate") !== undefined ? app.storage.read("lastupdate") : 0}
+};
+
 var imagesCT={};
 var redirectRequests={};
 var cleanUpInterval=1000*60*60*24;

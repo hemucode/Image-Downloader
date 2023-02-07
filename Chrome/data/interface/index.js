@@ -1,3 +1,29 @@
+domReady(() => {
+  bindCheckboxes()
+})
+
+
+function domReady (callback) {
+  if (document.readyState === 'complete') {
+    callback()
+  } else {
+    window.addEventListener('load', callback, false);
+  }
+}
+
+function bindCheckboxes() {
+  for (const $setting of document.querySelectorAll('.setting')) {
+    const $input = $setting.querySelector('input')
+    $input.checked = localStorage[$input.name] === 'true'
+    $setting.addEventListener('change', (event) => {
+      localStorage[$input.name] = $input.checked
+    }, false)
+  }
+  if (localStorage.checkbox=="true") {
+    document.querySelectorAll("link")[1].rel = 'text';//dark
+    document.querySelectorAll("link")[2].rel = 'stylesheet';//light
+  }
+}
 var conf={
     defaults:{
         minwidth:0,
@@ -59,7 +85,7 @@ var imageye={
         }
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             imageye.currUrl=tabs[0].url;
-            chrome.scripting.executeScript({target:{tabId:tabs[0].id,allFrames: allFrames}, files:['app.js']}, (res) => {imageye.getImagesCallback(res);})
+            chrome.scripting.executeScript({target:{tabId:tabs[0].id,allFrames: allFrames}, files:['lib/image.js']}, (res) => {imageye.getImagesCallback(res);})
         })
     },
     getImagesCallback: async function(results){
@@ -199,7 +225,7 @@ var imageye={
                                 div.setAttribute("layout","square");
                                 
                             var style="style='wwidth:" + width + "px;hheight:" + height + "px'";
-                            div.innerHTML="<img class='origImg' id='"+imgSrc+"' src='"+imgSrc+"' "+style+"><br><input class='imgInput' value='"+this.src+"'><div class='imgInfo'><div class='imgSize imgDimension' style='margin-left:5px;'>-</div><div class='imgSize'>"+this.width+"x"+this.height+"</div><div class='imgSize imgType' style='margin-right:5px;'>other</div><div class='imgActions'><input type='checkbox'><img class='zoomIcon' title='"+chrome.i18n.getMessage("openinnewtab")+"' src='/newtab.png' /><img class='zoomIcon downloadIcon' title='"+chrome.i18n.getMessage("download")+"' src='data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMS4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDI5Ljk3OCAyOS45NzgiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI5Ljk3OCAyOS45Nzg7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIyNHB4Ij4KPGc+Cgk8cGF0aCBkPSJNMjUuNDYyLDE5LjEwNXY2Ljg0OEg0LjUxNXYtNi44NDhIMC40ODl2OC44NjFjMCwxLjExMSwwLjksMi4wMTIsMi4wMTYsMi4wMTJoMjQuOTY3YzEuMTE1LDAsMi4wMTYtMC45LDIuMDE2LTIuMDEyICAgdi04Ljg2MUgyNS40NjJ6IiBmaWxsPSIjMDAwMDAwIi8+Cgk8cGF0aCBkPSJNMTQuNjIsMTguNDI2bC01Ljc2NC02Ljk2NWMwLDAtMC44NzctMC44MjgsMC4wNzQtMC44MjhzMy4yNDgsMCwzLjI0OCwwczAtMC41NTcsMC0xLjQxNmMwLTIuNDQ5LDAtNi45MDYsMC04LjcyMyAgIGMwLDAtMC4xMjktMC40OTQsMC42MTUtMC40OTRjMC43NSwwLDQuMDM1LDAsNC41NzIsMGMwLjUzNiwwLDAuNTI0LDAuNDE2LDAuNTI0LDAuNDE2YzAsMS43NjIsMCw2LjM3MywwLDguNzQyICAgYzAsMC43NjgsMCwxLjI2NiwwLDEuMjY2czEuODQyLDAsMi45OTgsMGMxLjE1NCwwLDAuMjg1LDAuODY3LDAuMjg1LDAuODY3cy00LjkwNCw2LjUxLTUuNTg4LDcuMTkzICAgQzE1LjA5MiwxOC45NzksMTQuNjIsMTguNDI2LDE0LjYyLDE4LjQyNnoiIGZpbGw9IiMwMDAwMDAiLz4KCTxnPgoJPC9nPgoJPGc+Cgk8L2c+Cgk8Zz4KCTwvZz4KCTxnPgoJPC9nPgoJPGc+Cgk8L2c+Cgk8Zz4KCTwvZz4KCTxnPgoJPC9nPgoJPGc+Cgk8L2c+Cgk8Zz4KCTwvZz4KCTxnPgoJPC9nPgoJPGc+Cgk8L2c+Cgk8Zz4KCTwvZz4KCTxnPgoJPC9nPgoJPGc+Cgk8L2c+Cgk8Zz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K' />"+(imgSrc.toLowerCase().indexOf("http")==-1?"":("<img class='zoomIcon searchsimilarimgs' title='"+chrome.i18n.getMessage("searchsimilarimgs")+"' src='/searchsimilarimgs.png' />"))+"</div></div>";
+                            div.innerHTML="<img class='origImg' id='"+imgSrc+"' src='"+imgSrc+"' "+style+"><br><input class='imgInput' value='"+this.src+"'><div class='imgInfo'><div class='imgSize imgDimension' style='margin-left:5px;'>-</div><div class='imgSize'>"+this.width+"x"+this.height+"</div><div class='imgSize imgType' style='margin-right:5px;'>other</div><div class='imgActions'><input type='checkbox'><img class='zoomIcon' title='"+chrome.i18n.getMessage("openinnewtab")+"' src='../icons/newtab.png' /><img class='zoomIcon downloadIcon' title='"+chrome.i18n.getMessage("download")+"' src='../icons/icon-128.png' />"+(imgSrc.toLowerCase().indexOf("http")==-1?"":("<img class='zoomIcon searchsimilarimgs' title='"+chrome.i18n.getMessage("searchsimilarimgs")+"' src='../icons/searchsimilarimgs.png' />"))+"</div></div>";
                             div.setAttribute("imgsrc",imgSrc);
                             
                             /*find the right place for appending based on pixels*/
@@ -271,7 +297,7 @@ var imageye={
             $("#downloadButton")[0].style.display="none";
             $("#foundimagesinnerdiv")[0].style.display="";
         }else{
-            $("#downloadButton")[0].innerHTML="<img src='data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjI0cHgiIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDUyLjc1NiA1Mi43NTciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUyLjc1NiA1Mi43NTc7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8Zz4KCQk8Zz4KCQkJPHBhdGggZD0iTTI2LjEwNiwyOS4wNTlsMTAuNTIzLTEwLjUyM2MxLjA0Ny0xLjAyNCwwLjgxMy0xLjc0Ni0wLjY0OS0xLjc0NmgtNS44NzNMMzAuMTA4LDRjMC0yLjIwOS0xLjc5LTQtNC00bDAsMCAgICAgYy0yLjIwOSwwLTQsMS43OTEtNCw0bC0wLjAwMSwxMi43ODloLTUuODc2Yy0xLjQ2Mi0wLjAwMS0xLjY5MywwLjcyMy0wLjY0NiwxLjc0N0wyNi4xMDYsMjkuMDU5eiIgZmlsbD0iI0ZGRkZGRiIvPgoJCQk8cGF0aCBkPSJNNDkuMDI3LDI1Ljc3aC02LjA0OWMtMC41NTQsMC0xLDAuNDQ3LTEsMXYxNy45MzlIMTAuNzhWMjYuNzdjMC0wLjU1My0wLjQ0Ny0xLTEtMUgzLjczMWMtMC41NTMsMC0xLDAuNDQ3LTEsMXYyMC40NjQgICAgIGMwLDMuMDQ1LDIuNDc5LDUuNTIyLDUuNTI0LDUuNTIyaDM2LjI0OGMzLjA0NiwwLDUuNTIzLTIuNDc5LDUuNTIzLTUuNTIyVjI2Ljc3QzUwLjAyNywyNi4yMTcsNDkuNTgxLDI1Ljc3LDQ5LjAyNywyNS43N3oiIGZpbGw9IiNGRkZGRkYiLz4KCQk8L2c+Cgk8L2c+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==' />"+chrome.i18n.getMessage("manyfilesnum").replace("%n",selectionLength);
+            $("#downloadButton")[0].innerHTML="<img src='../icons/icon-128.png' />"+chrome.i18n.getMessage("manyfilesnum").replace("%n",selectionLength);
             $("#downloadButton")[0].style.display="";
             $("#foundimagesinnerdiv")[0].style.display="none";
         }
@@ -357,10 +383,6 @@ var imageye={
         window.open("https://chrome.google.com/webstore/detail/imageye-image-downloader/agionbommeaifngbhincahgmoflcikhm/reviews");
     },
     downloadImages:async function(){
-        //39sec 204 immagini - con 300ms
-        //41sec 206 immagini - con 1000ms
-        //2:16  774/780 immagini - con 300ms
-        //2:24  /780 immagini - con 1000ms
         var urls=[];
         for (var k in imageye.selection) 
             if (imageye.selection.hasOwnProperty(k)) 

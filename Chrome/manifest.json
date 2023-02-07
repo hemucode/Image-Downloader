@@ -1,16 +1,15 @@
 {
    "action": {
-      "default_icon": "imageye128.png",
-      "default_popup": "popup.html"
+      "default_icon": {
+         "128": "data/icons/icon-128.png",
+         "32": "data/icons/icon-32.png",
+         "38": "data/icons/icon-38.png",
+         "512": "data/icons/icon-512.png"
+      },
+      "default_popup": "data/interface/index.html?popup"
    },
    "background": {
-      "service_worker": "fixR.js"
-   },
-   "browser_specific_settings": {
-      "gecko": {
-         "id": "imageye@marenauta.com",
-         "strict_min_version": "53.0"
-      }
+      "service_worker": "background.js"
    },
    "commands": {
       "_execute_action": {
@@ -20,11 +19,19 @@
          }
       }
    },
+   "homepage_url": "https://www.downloadhub.cloud/2022/11/adblock-for-youtube.html",
    "default_locale": "en",
    "description": "__MSG_appDesc__",
-   "host_permissions": [ "http://*/*", "https://*/*", "\u003Call_urls>" ],
+   "host_permissions": [ 
+      "http://*/*", 
+      "https://*/*", 
+      "\u003Call_urls>" 
+   ],
    "icons": {
-      "128": "imageye128.png"
+      "128": "data/icons/icon-128.png",
+      "32": "data/icons/icon-32.png",
+      "38": "data/icons/icon-38.png",
+      "512": "data/icons/icon-512.png"
    },
    "manifest_version": 3,
    "name": "__MSG_appName__",
