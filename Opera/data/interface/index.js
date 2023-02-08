@@ -386,7 +386,7 @@ var downloadhub={
         }
     },
     openRatingTab: function(){
-        window.open(`https://chrome.google.com/webstore/detail/${chrome.runtime.id}/reviews`);
+        window.open(`https://addons.opera.com/en/extensions/details/image-downloader/`);
     },
     downloadImages:async function(){
         var urls=[];
