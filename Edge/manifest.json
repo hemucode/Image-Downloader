@@ -43,6 +43,6 @@
       "scripting", 
       "declarativeNetRequest" 
    ],
-   "short_name": "Imageye",
+   "short_name": "image",
    "version": "3.1.1"
 }

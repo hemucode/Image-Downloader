@@ -1,0 +1,110 @@
+.imgSize {
+    background: rgb(69 173 255) !important;
+    color: #ffffff !important;
+}
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg: #ffffff;
+        --darkerbg: #ffffff;
+        --bgpng: #ffffff;
+        --fc: #000;
+        
+    }
+    body{
+        color:var(--fc);
+    }
+    a{
+        color:#27a5ff;
+    }
+    .filters svg{
+        filter:invert(0.9);
+    }
+    .statusdivcontainer{
+        background-color: var(--bg);
+        border-bottom-color: #1a1a1a;
+        box-shadow: none;
+    }
+    #showPrefs img{
+        filter:invert(0.9);
+        opacity:0.85;
+    }
+    #showPrefs:hover img{
+        opacity:1;
+    }
+    .filters .selectMenu{
+        background-color: var(--darkerbg);
+        border-color: var(--darkerbg);
+        box-shadow:0.05em 4px 0.6em rgb(0 0 0 / 40%);
+    }
+    .filters .selectMenu input{
+        background-color: transparent !important;
+        color:black;
+    }
+    .filters .selectMenu > div {
+        color:#000 !important;
+        filter:invert(0.8);
+    }
+    #imgsContainer{
+        background-color: var(--darkerbg);
+    }
+    .imgContainer{
+        background-color: var(--bg);
+        box-shadow: rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
+    }
+    input[type="checkbox"]{
+        filter:invert(0);
+    }
+    .zoomIcon{
+        filter:invert(0);
+    }
+    .zoomIcon:hover,input[type="checkbox"]:hover{
+        filter:invert(0.9);
+        opacity: 1 !important;
+    }
+    .imgInput{
+        background:var(--bg); 
+        color: #a1a1a1;
+    }
+    .imgActions{
+        background: var(--bg) 0.9;
+    }
+    .origImg {
+        background-color: var(--bg);
+        background-image: linear-gradient(45deg, var(--bgpng) 25%, transparent 25%, transparent 75%, var(--bgpng) 75%, var(--bgpng)), linear-gradient(45deg, var(--bgpng) 25%, transparent 25%, transparent 75%, var(--bgpng) 75%, var(--bgpng));
+    }
+    #prefsDiv > div, #ratingDiv > div, #manyfiles > div{
+        background-color: var(--bg) !important; 
+    }
+    .downloadButton{
+        background-color:#dadce5;
+        border-color:#bfbfbf;
+        color:var(--fc);
+    }
+    .statusdivcontainer .toolsButton{
+        background:#3a3b3e;
+        border-color:#7a7e83;;
+        color:#d5d4d4;
+    }
+    .downloadButton:hover{
+        border-color:#7a7e83;
+    }
+    .downloadButton.cancelButton{
+        filter:invert(1);
+    }
+    .prefsTip{
+        background-color: var(--darkerbg);
+    }
+    #savefoldername{
+        filter:invert(1);
+        border:none;
+    }
+    .imgSelected{
+        border-color: #2196f3;
+    }
+    .new{
+        background-color: #fff;
+        color:#000;
+    }
+}
+
+
