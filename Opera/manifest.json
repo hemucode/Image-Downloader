@@ -19,6 +19,7 @@
       "128": "data/icons/icon-128.png",
       "32": "data/icons/icon-32.png",
       "38": "data/icons/icon-38.png",
+      "64": "data/icons/icon-64.png",
       "512": "data/icons/icon-512.png"
    },
    "manifest_version": 3,
